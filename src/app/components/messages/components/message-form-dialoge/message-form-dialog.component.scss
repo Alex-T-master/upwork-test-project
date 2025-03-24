@@ -1,0 +1,19 @@
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  background-color: red !important;
+  margin-bottom: 30px !important;
+}

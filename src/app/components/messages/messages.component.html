@@ -1,0 +1,63 @@
+<div class="messages-container">
+  <div class="header-row">
+    <h1>My app</h1>
+
+    <div class="actions">
+      <button mat-raised-button color="black" (click)="openMessageForm()">
+        Add New Message
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="loading$ | async as loading; else notLoading">
+    <div class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  </ng-container>
+
+  <ng-template #notLoading>
+    <ng-container *ngIf="messages$ | async as messages">
+      <div *ngIf="messages.length === 0" class="no-messages">
+        <p>There is no messages yet, you can add a new messages now! thanks Dia</p>
+      </div>
+
+      <table
+        mat-table
+        [dataSource]="messages"
+        class="messages-table"
+        *ngIf="messages.length > 0"
+      >
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let message">{{ message.id }}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let message">{{ message.email }}</td>
+        </ng-container>
+
+        <!-- Message Column -->
+        <ng-container matColumnDef="message">
+          <th mat-header-cell *matHeaderCellDef>Message</th>
+          <td mat-cell *matCellDef="let message">
+            {{ message.message | slice : 0 : 100
+            }}{{ (message.message?.length ?? 0) > 100 ? "..." : "" }}
+          </td>
+        </ng-container>
+mn -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td style="white-space: nowrap" mat-cell *matCellDef="let message">
+            {{ message.createdAt | date : "medium" }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </ng-container>
+  </ng-template>
+</div>
